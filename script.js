@@ -1,4 +1,7 @@
 
+function firstLetterUpper(str){
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 /*
     Randomly Generate a choice for the computer
     1 - Rock
@@ -24,7 +27,8 @@ function getComputerChoice(){
 function playRound(playerSelection , computerSelection){
     
     if (playerSelection == computerSelection){
-        console.log(`It's a Draw! Both picked ${playerSelection}`);
+        const str = firstLetterUpper(playerSelection);
+        console.log(`It's a Draw! Both picked ${str}!`);
         return -1;
     }
     // Rock
@@ -62,7 +66,3 @@ function playRound(playerSelection , computerSelection){
     }
     
 }
-
-const playerSelection = "ROCK";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
