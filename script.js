@@ -7,6 +7,12 @@ let playerWins;
 let computerWins;
 let winner;
 
+
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const div = document.querySelector(".textBox");
+
 function checkValidSelection(){
 
     while (true){
@@ -63,53 +69,64 @@ function playRound(playerSelection , computerSelection){
     
     if (playerSelection == computerSelection){
         const str = firstLetterUpper(playerSelection);
-        console.log(`It's a Draw! Both picked ${str}! \n\tTry Again!`);
-        alert(`It's a Draw! Both picked ${str}! \n\tTry Again!`);
+        div.textContent = (`It's a Draw! Both picked ${str}! \n\tTry Again!`);
+        
         return -1;
     }
     // Rock
     else if (playerSelection == "ROCK"){
         if (computerSelection == "PAPER"){
-            console.log("You Lose! Paper beats Rock");
-            alert("You Lose! Paper beats Rock");
+            div.textContent = ("You Lose! Paper beats Rock");
             return false;
         }
         else{
-            console.log("You Win! Rock Beats Scissors");
-            alert("You Win! Rock Beats Scissors");
+            div.textContent = ("You Win! Rock Beats Scissors");
             return true;
         }
     }
     //Paper
     else if (playerSelection == "PAPER"){
         if (computerSelection == "SCISSORS"){
-            console.log("You Lose! Scissors beats Paper");
-            alert("You Lose! Scissors beats Paper");
+            div.textContent = ("You Lose! Scissors beats Paper");
             return false;
         }
         else{
-            console.log("You Win! Paper Beats Rock");
-            alert("You Win! Paper Beats Rock");
+            div.textContent = ("You Win! Paper Beats Rock");
             return true;
         }
     }
     //Scissors
     else{
         if (computerSelection == "ROCK"){
-            console.log("You Lose! Rock beats Scissors");
-            alert("You Lose! Rock beats Scissors");
+            div.textContent = ("You Lose! Rock beats Scissors");
             return false;
         }
         else{
-            console.log("You Win! Scissors Beats Paper");
-            alert("You Win! Scissors Beats Paper");
+            div.textContent = ("You Win! Scissors Beats Paper");
             return true;
         }
     }
     
 }
 
+console.log("Welcome to Jan Ken Pon (Rock Paper Scissors).");
 
+
+rock.addEventListener('click',() =>{
+    playRound('ROCK',getComputerChoice());
+});
+paper.addEventListener('click',() =>{
+    playRound('PAPER',getComputerChoice());
+});
+scissors.addEventListener('click',() =>{
+    playRound('SCISSORS',getComputerChoice());
+});
+
+
+
+
+
+/*
 function game() {
     playerWins = 0;
     computerWins = 0;
@@ -129,9 +146,10 @@ function game() {
     console.log(`The Computer Won ${computerWins} Times \nYou Won ${playerWins} Times`);
     alert(`The Computer Won ${computerWins} Times \nYou Won ${playerWins} Times`);
     console.log(winner);
+    alert(winner);
 
 }
+*/
 
-console.log("Welcome to Jan Ken Pon (Rock Paper Scissors).");
 
-game();
+//game();
