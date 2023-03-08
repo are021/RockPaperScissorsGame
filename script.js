@@ -8,31 +8,25 @@ let computerWins = 0;
 let winner;
 let newGame = false;
 
-
+/*
+    DOM Elements
+*/
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
 const div = document.querySelector(".textBox");
 const body = document.querySelector("body");
+const p = document.querySelector("#player");
+const c = document.querySelector('#computer');
 
-/*
-function checkValidSelection(){
-
-    while (true){
-        let input = prompt("Select one of the options \n 1) Rock \n 2) Paper \n 3) Scissors");
-        let temp = input.toUpperCase();
-
-        if (temp == "ROCK" || temp == "SCISSORS" || temp == "PAPER"){
-            return temp;
-        }
-        console.log(`${input} IS NOT A VALID INPUT, TRY AGAIN!`);
-        alert(`${input} IS NOT A VALID INPUT, TRY AGAIN!`);
-    }
-}
-*/
 
 function firstLetterUpper(str){
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function showScore(){
+    p.textContent = `Player : ${playerWins}`;
+    c.textContent = `Computer : ${computerWins}`;
 }
 
 
@@ -43,9 +37,6 @@ function getWinner(player, computer){
     }
     else if (player < computer){
         return "You Lost! Better Luck Next Time";
-    }
-    else{
-        return "You Drew? Well That is Unfortunate";
     }
 }
 /*
@@ -75,7 +66,6 @@ function playRound(playerSelection , computerSelection){
     if (playerSelection == computerSelection){
         const str = firstLetterUpper(playerSelection);
         div.textContent = (`It's a Draw! Both picked ${str}! \n\tTry Again!`);
-        
         return -1;
     }
     // Rock
@@ -97,6 +87,7 @@ function playRound(playerSelection , computerSelection){
         }
         else{
             div.textContent = ("You Win! Paper Beats Rock");
+
             return true;
         }
     }
@@ -104,6 +95,7 @@ function playRound(playerSelection , computerSelection){
     else{
         if (computerSelection == "ROCK"){
             div.textContent = ("You Lose! Rock beats Scissors");
+
             return false;
         }
         else{
@@ -116,6 +108,7 @@ function playRound(playerSelection , computerSelection){
 
 function removeResetButton(newDiv){
     body.removeChild(newDiv);
+    div.textContent = "Can You Beat The Computer? First to Five Wins!";
     body.appendChild(div);
     
     newGame = false;
@@ -140,6 +133,7 @@ function createResetButton(){
 
 function play(str){
     div.classList.remove("lost");
+    div.classList.remove("won");
     if (newGame){
         createResetButton();
         return;
@@ -147,8 +141,14 @@ function play(str){
     whoWon =  playRound(str,getComputerChoice());
     if (playerWins == 5 || computerWins == 5){
         winner = getWinner(playerWins,computerWins);
-        div.classList.add("lost");
-        div.textContent = (`The Computer Won ${computerWins} Times and \nYou Won ${playerWins} Times`);
+
+        if (playerWins > computerWins){
+            div.classList.add("won");
+        }
+        else{
+            div.classList.add("lost");
+        }
+        div.textContent = (`The Computer Won ${computerWins} Times and You Won ${playerWins} Times \n ${winner}` );
         //div.textContent = winner;
         
         playerWins = 0;
@@ -160,6 +160,7 @@ function play(str){
     }
     else{
         whoWon == true ? playerWins++ : computerWins++;
+        showScore();
     }
     return;
 
