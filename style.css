@@ -30,7 +30,6 @@ body{
 
 .textBox,.newButtons{
     height : 25vh;
-    box-sizing:border-box;
     display:flex;
     justify-content: center;
     align-items: center;

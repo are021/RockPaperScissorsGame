@@ -109,6 +109,7 @@ function playRound(playerSelection , computerSelection){
 function removeResetButton(newDiv){
     body.removeChild(newDiv);
     div.textContent = "Can You Beat The Computer? First to Five Wins!";
+    showScore();
     body.appendChild(div);
     
     newGame = false;
