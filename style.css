@@ -1,25 +1,31 @@
-
+html, body{
+    height:100%;
+}
 body{
     display:flex;
     flex-direction: column;
     font-family:fantasy;
 }
 
+
 .title{
     text-align: center;
     border: 5px outset salmon;
     background-color: lightcoral;
     padding : 10px;
+    height : 30vh;
 }
 .title div{
     font-size : 26px;
 }
 
-.textBox{
+.textBox,.newButtons{
+    height : 25vh;
+    box-sizing:border-box;
     display:flex;
     justify-content: center;
-
-    font-size:25px;
+    align-items: center;
+    font-size:35px;
     padding: 20px;
     border-style:double;
     border-color:black;
@@ -31,8 +37,7 @@ body{
 
 
 
-.buttons{
-    
+.buttons{ 
     display:flex;
     justify-content: space-around;
     align-items: center;
@@ -60,3 +65,19 @@ body{
     cursor:pointer;  
 }
 
+.lost{
+    background-color:red;
+}
+
+.new{
+    display:flex;
+    justify-content:center;
+    padding:15px;
+    width:200px;    
+    font-size:35px;
+}
+
+.new:hover{
+    background-color: rgb(207, 95, 117);
+    cursor:pointer;  
+}

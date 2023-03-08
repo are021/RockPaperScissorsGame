@@ -3,16 +3,19 @@ Global Variables
 */
 let playerSelection;
 let computerChoice;
-let playerWins;
-let computerWins;
+let playerWins = 0;
+let computerWins = 0;
 let winner;
+let newGame = false;
 
 
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
 const div = document.querySelector(".textBox");
+const body = document.querySelector("body");
 
+/*
 function checkValidSelection(){
 
     while (true){
@@ -26,10 +29,12 @@ function checkValidSelection(){
         alert(`${input} IS NOT A VALID INPUT, TRY AGAIN!`);
     }
 }
+*/
 
 function firstLetterUpper(str){
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
+
 
 function getWinner(player, computer){
    
@@ -109,47 +114,65 @@ function playRound(playerSelection , computerSelection){
     
 }
 
-console.log("Welcome to Jan Ken Pon (Rock Paper Scissors).");
+function removeResetButton(newDiv){
+    body.removeChild(newDiv);
+    body.appendChild(div);
+    
+    newGame = false;
+}
+
+function createResetButton(){
+    body.removeChild(div);
+
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('newButtons');
+    const newButton = document.createElement('button');
+    newButton.textContent = "Reset";
+    newButton.classList.add('new');
+    newButton.addEventListener('click',() =>{
+        removeResetButton(newDiv);
+    });
+    newDiv.appendChild(newButton);
+    body.appendChild(newDiv);
+    
+}
 
 
-rock.addEventListener('click',() =>{
-    playRound('ROCK',getComputerChoice());
-});
-paper.addEventListener('click',() =>{
-    playRound('PAPER',getComputerChoice());
-});
-scissors.addEventListener('click',() =>{
-    playRound('SCISSORS',getComputerChoice());
-});
-
-
-
-
-
-/*
-function game() {
-    playerWins = 0;
-    computerWins = 0;
-    for (let i = 0; i < 5 ; i++){ 
-        playerSelection = checkValidSelection();
-        computerChoice = getComputerChoice(); //Get Computer Choice
-        whoWon = playRound(playerSelection, computerChoice);
-        
-        if (whoWon == -1){
-            i--; //Remove this Choice   
-        }
-        else{
-            whoWon == true ? playerWins++ : computerWins++;
-        }
+function play(str){
+    div.classList.remove("lost");
+    if (newGame){
+        createResetButton();
+        return;
     }
-    winner = getWinner(playerWins,computerWins);
-    console.log(`The Computer Won ${computerWins} Times \nYou Won ${playerWins} Times`);
-    alert(`The Computer Won ${computerWins} Times \nYou Won ${playerWins} Times`);
-    console.log(winner);
-    alert(winner);
+    whoWon =  playRound(str,getComputerChoice());
+    if (playerWins == 5 || computerWins == 5){
+        winner = getWinner(playerWins,computerWins);
+        div.classList.add("lost");
+        div.textContent = (`The Computer Won ${computerWins} Times and \nYou Won ${playerWins} Times`);
+        //div.textContent = winner;
+        
+        playerWins = 0;
+        computerWins = 0;
+        newGame = true;
+    }
+    else if (whoWon == -1){
+        return; //Remove this Choice   
+    }
+    else{
+        whoWon == true ? playerWins++ : computerWins++;
+    }
+    return;
+
 
 }
-*/
+rock.addEventListener('click',() =>{
+    play("ROCK");
+});
+paper.addEventListener('click',() =>{
+    play("PAPER");
+});
+scissors.addEventListener('click',() =>{
+    play("SCISSORS");
+});
 
-
-//game();
+//div.textContent("Welcome to Jan Ken Pon (Rock Paper Scissors).");
